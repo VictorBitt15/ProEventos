@@ -65,7 +65,7 @@ namespace ProEventos.Persistence.Migrations
                     b.Property<int>("EventoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Preco")

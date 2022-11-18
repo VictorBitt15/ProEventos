@@ -14,6 +14,7 @@
     <tr>
       <th>
         <button class="btn btn-outline-light btn-sm" (click)="isCollapsedImg = !isCollapsedImg">
+          <i class="{{isCollapsedImg ? 'fa fa-eye': 'fa fa-eye-slash'}}"></i>
         {{isCollapsedImg ? 'Mostrar': 'Ocultar'}}
         </button>
       </th>
@@ -35,15 +36,19 @@
         [collapse]="isCollapsedImg" [isAnimated]="true">
 
       </td>
-      <td>{{evento.eventoId}}</td>
+      <td>{{evento.id}}</td>
       <td>{{evento.tema}}</td>
       <td>{{evento.local}}</td>
-      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.dataEvento|DateFormatPipe}}</td>
       <td>{{evento.qtdPessoas}}</td>
-      <td>{{evento.lote}}</td>
+      <td>{{evento.lotes[0].nome| uppercase}}</td>
       <td>
-        <button class="btn-primary btn-sm mr-2">Editar</button>
-        <button class="btn-primary btn-danger">Excluir</button>
+        <button class="btn-primary btn-sm mr-2" tooltip="Editar">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button class="btn-primary btn-danger" tooltip="Excluir" (click)="openModal(template)">
+          <i class="fa fa-trash"></i>
+          </button>
       </td>
     </tr>
   </tbody>
@@ -56,3 +61,10 @@
   </tfoot>
 </table>
 <!-- {{eventos | json}} mostra os objetos e suas propriedades-->
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja excluir esse evento?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>

@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Evento } from '../models/Evento';
+import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'app-eventos',
@@ -7,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./eventos.component.scss']
 })
 export class EventosComponent implements OnInit {
-
-  public eventos : any =[];
-  public eventosFiltrados: any =[];
+  modalRef={} as BsModalRef;
+  public eventos : Evento[] =[];
+  public eventosFiltrados: Evento[] =[];
   widthImg = 50;
   marginImg = 2;
   isCollapsedImg = false;
@@ -22,7 +24,7 @@ export class EventosComponent implements OnInit {
     this._filtroLista=value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
-  filtrarEventos(filtrarPor: string ): any{
+  public filtrarEventos(filtrarPor: string ): Evento[]{
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
       (evento: any) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
@@ -30,20 +32,28 @@ export class EventosComponent implements OnInit {
     );
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private eventoService: EventoService, private modalService: BsModalService) { }
 
-  ngOnInit(): void {
+ public ngOnInit(): void {
     this.getEventos();
   }
 
   public getEventos(): void{
-      this.http.get('https://localhost:5001/api/eventos').subscribe(
-        response => {
-          this.eventos = response;
-          this.eventosFiltrados = response;
+      this.eventoService.getEventos().subscribe(
+        (_eventos: Evento[]) => {
+          this.eventos = _eventos;
+          this.eventosFiltrados = this.eventos;
           },
         error => console.log(error)
       );
   }
-
+  openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template,{class: 'modal-sm'});
+  }
+  confirm():void{
+    this.modalRef.hide();
+  }
+  decline():void{
+    this.modalRef.hide();
+  }
 }
