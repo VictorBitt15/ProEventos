@@ -14,7 +14,7 @@ namespace ProEventos.Application
         private readonly IEventoPersist eventoPersist;
         private readonly IMapper _mapper;
 
-        public EventoService(IGeralPersist geralPersist, IEventoPersist eventoPersist, Mapper mapper)
+        public EventoService(IGeralPersist geralPersist, IEventoPersist eventoPersist, IMapper mapper)
         {
             this.eventoPersist = eventoPersist;
             this.geralPersist = geralPersist;

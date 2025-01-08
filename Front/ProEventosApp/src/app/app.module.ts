@@ -6,6 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ptBrLocale } from 'ngx-bootstrap/locale';
+
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
@@ -30,6 +34,8 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { UserComponent } from './components/user/user.component';
 import { EventoService } from './services/evento.service';
 import { TitleComponent } from './shared/title/title.component';
+
+defineLocale('pt-br',ptBrLocale);
 
 @NgModule({
   declarations: [
@@ -56,6 +62,7 @@ import { TitleComponent } from './shared/title/title.component';
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot({
       timeOut:5000,

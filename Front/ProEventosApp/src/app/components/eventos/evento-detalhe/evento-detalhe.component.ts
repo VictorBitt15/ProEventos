@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -8,9 +9,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private localeService: BsLocaleService) {
+    this.localeService.use('pt-br');
+  }
   get f():any{
     return this.form.controls;
+  }
+  get bsConfig():any{
+    return{
+      isAnimated  : true,
+      adaptivePosition:true,
+      dateInputFormat: 'DD/MM/YYYY hh:mm',
+      containerClass:'theme-default',
+      showWeekNumbers:false
+    };
   }
   ngOnInit(): void {
     this.validation();
@@ -29,6 +41,9 @@ export class EventoDetalheComponent implements OnInit {
   }
   public resetForm():void{
     this.form.reset();
+  }
+  public cssValidator(campoForm : FormControl): any{
+    return {'is-invalid': campoForm?.errors && campoForm?.touched}
   }
 
 }

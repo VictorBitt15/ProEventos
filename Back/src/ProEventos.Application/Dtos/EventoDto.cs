@@ -21,9 +21,9 @@ namespace ProEventos.Application.Dtos
 
         [Display(Name ="Qtd Pessoas")]
         [Range(1,120000, ErrorMessage ="{0} não pode ser menor que 1 e maior que 120.000")]
-        public int QtdPessoas { get; set; }
+        public int QtdPessoas { get; set; } 
 
-        [RegularExpression(@".*\.(jpe?g|png|gif|bmp))$)", ErrorMessage ="Não é uma imagem válida.(gif,png,jpg,jpeg)")]
+        [RegularExpression(@".*\.(jpe?g|png|gif|bmp)$", ErrorMessage ="Não é uma imagem válida.(gif,png,jpg,jpeg)")]
         public string ImagemURL { get; set; }
 
         [Required(ErrorMessage ="O campo {0} é obrigatório")]
